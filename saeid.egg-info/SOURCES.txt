@@ -1,0 +1,7 @@
+setup.py
+saeid.egg-info/PKG-INFO
+saeid.egg-info/SOURCES.txt
+saeid.egg-info/dependency_links.txt
+saeid.egg-info/entry_points.txt
+saeid.egg-info/requires.txt
+saeid.egg-info/top_level.txt
