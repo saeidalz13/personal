@@ -4,8 +4,8 @@ from pathlib import Path
 from datetime import datetime
 
 
-FILE = Path("saeid", "TD", "TD_Hours.xlsx")
-
+PATH_DATABASE = Path(__file__)
+DATABASE = Path(PATH_DATABASE, "TD_Hours.xlsx")
 
 def get_command_args():
     hours = ""
@@ -30,9 +30,9 @@ def get_command_args():
 def add_td(
     hours: float,
     task_done: str,
-    file=FILE,
+    database=DATABASE,
 ) -> bool:
-    df = pd.read_excel(FILE)
+    df = pd.read_excel(database)
     new_df = pd.DataFrame()
     new_df["Date"] = [pd.to_datetime(datetime.today()).strftime("%Y/%m/%d")]
     new_df["Hours"] = [hours]
@@ -41,7 +41,7 @@ def add_td(
     try:
         df = pd.concat([df, new_df], axis="rows", ignore_index=True)
         df.drop_duplicates("Date", keep="last", inplace=True)
-        df.to_excel(file, sheet_name="TD", index=False, header=True)
+        df.to_excel(database, sheet_name="TD", index=False, header=True)
         return True
     except Exception as e:
         print(f"Error occurred! {e}")
@@ -62,3 +62,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -1,11 +1,12 @@
 import pandas as pd
 from pathlib import Path
 
-FILE = Path("saeid","TD","TD_Hours.xlsx")
+PATH_DATABASE = Path(__file__)
+DATABASE = Path(PATH_DATABASE, "TD_Hours.xlsx")
 
 
-def read_file(file=FILE):
-    df = pd.read_excel(file, sheet_name="TD")
+def read_file(database=DATABASE):
+    df = pd.read_excel(database, sheet_name="TD")
 
     all_hours = df.loc[:, "Hours"].sum()
     beg_date = df.iloc[0, 0]
