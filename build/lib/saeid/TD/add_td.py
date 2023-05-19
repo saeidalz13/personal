@@ -1,9 +1,10 @@
 import pandas as pd
 import re
+from pathlib import Path
 from datetime import datetime
 
 
-FILE = r"C:\Air Quality - Local\01 Career\0000 Personal\saeid\TD\TD_Hours.xlsx"
+FILE = Path("saeid", "TD", "TD_Hours.xlsx")
 
 
 def get_command_args():
