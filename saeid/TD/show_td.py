@@ -1,7 +1,10 @@
 import pandas as pd
+import pkg_resources
 from pathlib import Path
 
-DATABASE = Path("database", "TD_Hours.xlsx")
+DATABASE = pkg_resources.resource_filename(
+    __name__, str(Path("database", "TD_Hours.xlsx"))
+)
 
 
 def read_file(database=DATABASE):

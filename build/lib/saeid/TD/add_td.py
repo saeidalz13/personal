@@ -1,10 +1,14 @@
 import pandas as pd
 import re
+import pkg_resources
 from pathlib import Path
 from datetime import datetime
 
 
-DATABASE = Path("database", "TD_Hours.xlsx")
+DATABASE = pkg_resources.resource_filename(
+    __name__, str(Path("database", "TD_Hours.xlsx"))
+)
+# Path("database", "TD_Hours.xlsx")
 
 
 def get_command_args():
