@@ -1,2 +1,2 @@
 [console_scripts]
-saeid = wrapper.wrapper:main
+saeid = saeid.wrapper_saeid.wrapper:main
