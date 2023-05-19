@@ -5,7 +5,8 @@ from datetime import datetime
 
 
 PATH_DATABASE = Path(__file__)
-DATABASE = Path(PATH_DATABASE, "TD_Hours.xlsx")
+DATABASE = Path(PATH_DATABASE.parent, "TD_Hours.xlsx")
+
 
 def get_command_args():
     hours = ""
@@ -62,4 +63,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
