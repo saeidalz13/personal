@@ -1,8 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-PATH_DATABASE = Path(__file__)
-DATABASE = Path(PATH_DATABASE.parent, "TD_Hours.xlsx")
+DATABASE = Path("database", "TD_Hours.xlsx")
 
 
 def read_file(database=DATABASE):

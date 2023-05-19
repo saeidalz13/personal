@@ -4,8 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-PATH_DATABASE = Path(__file__)
-DATABASE = Path(PATH_DATABASE.parent, "TD_Hours.xlsx")
+DATABASE = Path("database", "TD_Hours.xlsx")
 
 
 def get_command_args():
