@@ -18,6 +18,12 @@ def main():
         from saeid.TD import show_td
 
         show_td.main()
+
+    elif args.command == "remove_td":
+        from saeid.TD import remove_td
+
+        remove_td.main()
+
     else:
         raise TypeError("Wrong command")
 

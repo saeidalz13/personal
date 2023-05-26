@@ -1,24 +1,25 @@
-import pandas as pd
-import pkg_resources
-from pathlib import Path
+import re
+import sqlite3
 
-DATABASE = pkg_resources.resource_filename(
-    __name__, str(Path("database", "TD_Hours.xlsx"))
-)
+from datetime import datetime
+from pathlib import *
 
-
-def read_file(database=DATABASE):
-    df = pd.read_excel(database, sheet_name="TD")
-
-    all_hours = df.loc[:, "Hours"].sum()
-    beg_date = df.iloc[0, 0]
-
-    return all_hours, beg_date
+path_database = Path(__file__).parent
+DATABASE = Path(path_database, 'td_hours.db')
 
 
-def main():
-    ALL_HOURS, BEG_DATE = read_file()
-    print(f"Since {BEG_DATE}, {ALL_HOURS} hours of TD have been charged\n")
+def main(database=DATABASE):
+    try:
+        connect = sqlite3.connect(database)
+
+        c = connect.cursor()
+    
+        with connect:
+            c.execute("SELECT SUM(hours) FROM td_hours")
+            print(c.fetchone()[0])
+        return True
+    except Exception as e:
+        return False
 
 
 if __name__ == "__main__":

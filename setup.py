@@ -3,11 +3,11 @@ from pathlib import Path
 
 setup(
     name="saeid",
-    version="1.0",
+    version="2.0",
     packages=find_packages(),
-    package_data={"saeid": [str(Path("database", "TD_Hours.xlsx"))]},
+    package_data={"saeid": [str(Path("TD", "td_hours.db"))]},
     entry_points={
         "console_scripts": ["saeid=saeid.wrapper_saeid.wrapper:main"],
     },
-    install_requires=["pandas", "tqdm"],
+    install_requires=[],
 )

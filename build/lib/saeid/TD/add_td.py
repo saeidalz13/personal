@@ -1,14 +1,11 @@
-import pandas as pd
 import re
-import pkg_resources
-from pathlib import Path
+import sqlite3
+
 from datetime import datetime
+from pathlib import *
 
-
-DATABASE = pkg_resources.resource_filename(
-    __name__, str(Path("database", "TD_Hours.xlsx"))
-)
-# Path("database", "TD_Hours.xlsx")
+path_database = Path(__file__).parent
+DATABASE = Path(path_database, 'td_hours.db')
 
 
 def get_command_args():
@@ -36,20 +33,23 @@ def add_td(
     task_done: str,
     database=DATABASE,
 ) -> bool:
-    df = pd.read_excel(database)
-    new_df = pd.DataFrame()
-    new_df["Date"] = [pd.to_datetime(datetime.today()).strftime("%Y/%m/%d")]
-    new_df["Hours"] = [hours]
-    new_df["Task Done"] = [task_done]
-
+    
     try:
-        df = pd.concat([df, new_df], axis="rows", ignore_index=True)
-        df.drop_duplicates("Date", keep="last", inplace=True)
-        df.to_excel(database, sheet_name="TD", index=False, header=True)
+        connect = sqlite3.connect(database)
+
+        c = connect.cursor()
+    
+        with connect:
+            c.execute("INSERT INTO td_hours VALUES (:date, :hours, :desc)", 
+                    {
+                        "date": datetime.today().strftime("%Y/%m/%d"),
+                        "hours": hours,
+                        "desc": task_done
+                    })
         return True
     except Exception as e:
-        print(f"Error occurred! {e}")
         return False
+
 
 
 def run() -> bool:
@@ -59,10 +59,12 @@ def run() -> bool:
 
 def main():
     if run():
-        print("TD hours CSV was succesfully updated!")
+        print("Database was sucessfully updated!")
     else:
-        print("Something went wrong with updating the CSV file")
+        print("Something went wrong with updating the database!")
 
 
 if __name__ == "__main__":
     main()
+
+
